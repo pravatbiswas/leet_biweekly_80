@@ -1,14 +1,15 @@
 class Solution:
-    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
-        s = sorted((x, i) for i, x in enumerate(spells))
-        p = sorted(potions)
-        n = len(p)
-        ret = [None] * len(s)
-        i = n
-        for x, j in s:
-          while i > 0 and x * p[i - 1] >= success:
-            i -= 1
-          ret[j] = n - i
-        return ret
-                    
+    def matchReplacement(self, s: str, sub: str, mappings: List[List[str]]) -> bool:
+        reverse_mapping = defaultdict(set)
+        for c1, c2 in mappings:
+            reverse_mapping[c2].add(c1)
         
+        for i in range(len(s)-len(sub)+1):
+            bad = False
+            for j in range(len(sub)):
+                if sub[j] != s[i+j] and (sub[j] not in reverse_mapping[s[i+j]]):
+                    bad = True
+                    break
+            if not bad:
+                return True
+        return False
