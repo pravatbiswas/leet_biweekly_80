@@ -1,16 +1,14 @@
 class Solution:
     def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
+        s = sorted((x, i) for i, x in enumerate(spells))
+        p = sorted(potions)
+        n = len(p)
+        ret = [None] * len(s)
+        i = n
+        for x, j in s:
+          while i > 0 and x * p[i - 1] >= success:
+            i -= 1
+          ret[j] = n - i
+        return ret
+                    
         
-        max_val = len(potions)
-        req_prod_val = [0]*len(potions) 
-        for i, val in enumerate(potions):
-            req_prod_val[i] = math.ceil(success / val)
-        
-        res = [0] * len(spells)
-        for i in range(len(spells)):
-            cur_count = 0
-            for j in range(len(req_prod_val)):
-                if spells[i] >= req_prod_val[j]:
-                    cur_count += 1
-            res[i] = cur_count
-        return res
