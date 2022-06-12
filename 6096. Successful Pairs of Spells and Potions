@@ -1,14 +1,14 @@
 class Solution:
     def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
-        s = sorted((x, i) for i, x in enumerate(spells))
-        p = sorted(potions)
-        n = len(p)
-        ret = [None] * len(s)
-        i = n
-        for x, j in s:
-          while i > 0 and x * p[i - 1] >= success:
+        s = sorted((x, i) for i, x in enumerate(spells)) #sorting spells w.r.t value x and index i and index for the corresponding value is also stored for future reference of value
+        p = sorted(potions) #sorting potions and traversing backwards 
+        n = len(p) 
+        ret = [None] * len(s) # result will be stored here
+        i = n #initialized with total length of potions
+        for x, j in s: #travering from lower value of x and it's corresponding index j
+          while i > 0 and x * p[i - 1] >= success: #pairing condition, hence lower value should be decremented from n
             i -= 1
-          ret[j] = n - i
+          ret[j] = n - i #result will be stored here
         return ret
                     
         
